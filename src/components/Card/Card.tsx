@@ -14,7 +14,7 @@ type CardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 function Card ({ anchor, keyName, className, ...props }: CardProps): JSX.Element {
   return(
     <button className={clsx({
-      [className]: !!className,
+      // [className]: !!className,
       [styles.container]: true
       })}
       {...props}
