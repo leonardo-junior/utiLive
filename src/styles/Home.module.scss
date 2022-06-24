@@ -1,0 +1,15 @@
+.container {
+  display: grid;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  @media screen and (min-width: 1080px) {
+    grid-template-columns: 2fr 2fr 2fr;
+  }
+}
+
+.incomplete {
+  background-color: rgb(193, 99, 99);
+}
