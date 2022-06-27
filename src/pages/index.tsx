@@ -11,8 +11,8 @@ function Home (): JSX.Element {
       <div className={styles.container}>
         <Card anchor='/random-number' keyName='Loteria' />
         <Card anchor='/pomodoro' keyName='Pomodoro'/>
-        <Card anchor='/' keyName='Cálculo Gastos' className={styles.incomplete}/>
-        <Card anchor='/' keyName='Contador palavras' className={styles.incomplete}/>
+        <Card anchor='/' keyName='Cálculo Gastos' className={styles.incomplete} />
+        <Card anchor='/' keyName='Contador palavras' className={styles.incomplete} />
       </div>
     </Layout>
   )
