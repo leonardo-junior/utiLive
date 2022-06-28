@@ -1,100 +1,199 @@
 // vendors
-import { ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 // components
 import Layout from '../components/Layout/Layout'
+import PomodoroSettings from '../components/Pomodoro/PomodoroSettings/PomodoroSettings'
+import PomodoroRunning from '../components/Pomodoro/PomodoroRunning/PomodoroRunning'
+
+// styles
+import styles from '../styles/Pomodoro.module.scss'
 
 function Pomodoro (): JSX.Element {
-  const [workTime, setWorkTime] = useState(25*60)
-  const [breakTime, setBreakTime] = useState(5*60)
+  const [workTime, setWorkTime] = useState(25)
+  const [breakTime, setBreakTime] = useState(5)
 
-  const [isWorking, setIsWorking] = useState(false)
+  const [isToShowConfig, setIsToShowConfig] = useState(true)
+  const [isToShowWork, setIsToShowWork] = useState(false)
+  const [isToShowBreak, setIsToShowBreak] = useState(false)
 
+  const [showWorkTime, setShowWorkTime] = useState(convertToMinutes(workTime * 60))
+  const [showBreakTime, setShowBreakTime] = useState(convertToMinutes(breakTime * 60))
+
+  const [isRunning, setIsRunning] = useState(false)
+
+  const runningTimeWorkRef = useRef<number>(25 * 60)
+  const runningTimeBreakRef = useRef<number>(5 * 60)
   const intervalWorkRef = useRef<NodeJS.Timer>()
   const intervalBreakRef = useRef<NodeJS.Timer>()
 
-  function onChangeWorkTime (event: ChangeEvent<HTMLInputElement>) {
-    const newWorkTime = +event.target.value
-
-    setWorkTime(newWorkTime)
+  function clearIntervals () {
+    clearInterval(intervalBreakRef.current)
+    clearInterval(intervalWorkRef.current)
   }
 
-  function onChangeBreakTime (event: ChangeEvent<HTMLInputElement>) {
-    const newBreakTime = +event.target.value
+  function convertToMinutes (timeInSeconds: number) {
+    const minutes = Math.floor(+timeInSeconds / 60)
+    const seconds = +timeInSeconds % 60
 
-    setBreakTime(newBreakTime)
+    const shownSeconds = seconds < 10 ? '0' + seconds : seconds
+    const shownMinutes = minutes < 10 ? '0' + minutes : minutes
+
+    return `${shownMinutes}:${shownSeconds}`
   }
 
-  function runWorkTime () {
-    let workTimer = workTime
-
-    intervalWorkRef.current = setInterval(() => {
-      workTimer--
-
-      setWorkTime(workTimer)
-
-      if(workTimer < 1) {
-        setWorkTime(5)
-        clearInterval(intervalWorkRef.current)
-        clearInterval(intervalBreakRef.current)
-        runBreakTime()
-      }
-    }, 1000)
-
-    setIsWorking(true)
+  function changeToWorkTime () {
+    setIsToShowWork(true)
+    setIsToShowBreak(false)
   }
 
-  function runBreakTime () {
-    let breakTimer = breakTime
-
-    intervalBreakRef.current = setInterval(() => {
-      breakTimer--
-
-      setBreakTime(breakTimer)
-
-      if(breakTimer < 1) {
-        setBreakTime(5)
-        clearInterval(intervalBreakRef.current)
-        clearInterval(intervalWorkRef.current)
-        runWorkTime()
-      }
-    }, 1000)
-
-    setIsWorking(false)
+  function changeToBreakTime () {
+    setIsToShowBreak(true)
+    setIsToShowWork(false)
   }
 
-  function onActiveTimer () {
-    if(!isWorking) {
-      runWorkTime()
-      return
-    }
+  function onGoToBreak () {
+    const resetTime = breakTime * 60
 
-    runBreakTime()
+    setShowBreakTime(convertToMinutes(resetTime))
+    runningTimeBreakRef.current = resetTime
+
+    clearIntervals()
+    setIsRunning(false)
+
+    changeToBreakTime()
+  }
+
+  function onGoToWork () {
+    const resetTime = workTime * 60
+
+    setShowWorkTime(convertToMinutes(resetTime))
+    runningTimeWorkRef.current = resetTime
+
+    clearIntervals()
+    setIsRunning(false)
+
+    changeToWorkTime()
+  }
+
+  function onStartTimer () {
+    if (isRunning) return
+
+    setShowWorkTime(convertToMinutes(workTime * 60))
+
+    runningTimeWorkRef.current = workTime * 60
+    runningTimeBreakRef.current = breakTime * 60
+
+    setIsRunning(true)
+    setIsToShowWork(true)
+    setIsToShowConfig(false)
+
+    runWorkTime()
   }
 
   function onPauseTimer () {
-    clearInterval(intervalBreakRef.current)
-    clearInterval(intervalWorkRef.current)
+    clearIntervals()
 
-    setIsWorking(!isWorking)
+    setIsRunning(false)
   }
+
+  function onResetTimer () {
+    clearIntervals()
+
+    setIsRunning(false)
+    setIsToShowConfig(true)
+    setIsToShowBreak(false)
+    setIsToShowWork(false)
+  }
+
+  function runWorkTime () {
+    if (isRunning) return
+
+    intervalWorkRef.current = setInterval(() => {
+      const newTime = runningTimeWorkRef.current - 1
+
+      const shownWorkTime = convertToMinutes(newTime)
+
+      setShowWorkTime(shownWorkTime)
+
+      runningTimeWorkRef.current = newTime
+
+      if(newTime < 1) {
+        clearIntervals()
+
+        runningTimeWorkRef.current = workTime * 60
+        intervalWorkRef.current = undefined
+
+        runBreakTime()
+        changeToBreakTime()
+      }
+    }, 1000)
+
+    setIsRunning(true)
+  }
+
+  function runBreakTime () {
+    if (isRunning) return
+
+    intervalBreakRef.current = setInterval(() => {
+      const newTime = runningTimeBreakRef.current - 1
+
+      const shownBreakTime = convertToMinutes(newTime)
+
+      setShowBreakTime(shownBreakTime)
+
+      runningTimeBreakRef.current = newTime
+
+      if(newTime < 1) {
+        clearIntervals()
+
+        runningTimeBreakRef.current = breakTime * 60
+        intervalBreakRef.current = undefined
+
+        runWorkTime()
+        changeToWorkTime()
+      }
+    }, 1000)
+
+    setIsRunning(true)
+  }
+
 
   return (
     <Layout title='Pomodoro' description='Pomodoro timer'>
-      <div>
-        <div>Tempo de trabalho</div>
-        <input type='number' value={workTime} onChange={onChangeWorkTime}/>
-        <h1>{workTime}</h1>
-      </div>
+      <div className={styles.container}>
+        {isToShowConfig &&
+          <PomodoroSettings
+            workTime={workTime}
+            breakTime={breakTime}
+            setWorkTime={setWorkTime}
+            setBreakTime={setBreakTime}
+            onStartTimer={onStartTimer}
+          />
+        }
 
-      <div>
-        <div>Tempo de descanso</div>
-        <input type='number' value={breakTime} onChange={onChangeBreakTime}/>
-        <h1>{breakTime}</h1>
-      </div>
+        {isToShowWork &&
+          <PomodoroRunning
+            text='Tempo Trabalho'
+            shownTime={showWorkTime}
+            onPlay={runWorkTime}
+            onPause={onPauseTimer}
+            onReset={onResetTimer}
+            onSwapTime={onGoToBreak}
+          />
+        }
 
-      <button onClick={onActiveTimer}>Start</button>
-      <button onClick={onPauseTimer}>Pause</button>
+        {isToShowBreak &&
+          <PomodoroRunning
+            text='Tempo Descanso'
+            shownTime={showBreakTime}
+            onPlay={runBreakTime}
+            onPause={onPauseTimer}
+            onReset={onResetTimer}
+            onSwapTime={onGoToWork}
+          />
+        }
+      </div>
     </Layout>
   )
 }

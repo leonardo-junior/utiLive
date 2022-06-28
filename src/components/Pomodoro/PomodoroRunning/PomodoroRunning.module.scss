@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.buttons {
+  button {
+    margin: 0.25rem;
+  }
+}
