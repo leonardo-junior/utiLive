@@ -11,7 +11,7 @@ function Random (): JSX.Element {
   const maxRef = useRef(60)
   const numbersOfDrawRef = useRef(6)
 
-  function onChange (event:ChangeEvent<HTMLInputElement>, ref: MutableRefObject<number>) {
+  function onChange (event: ChangeEvent<HTMLInputElement>, ref: MutableRefObject<number>) {
     ref.current = +event.target.value
   }
 
@@ -51,13 +51,13 @@ function Random (): JSX.Element {
       </div>
 
       <span>Quantity of number drawed</span>
-      <input type='number' placeholder={'6'} onChange={(event) => onChange(event,numbersOfDrawRef)} />
+      <input type='number' placeholder={'6'} onChange={(event) => onChange(event, numbersOfDrawRef)} />
 
       <span>Min value</span>
-      <input type='number' placeholder={'1'} onChange={(event) => onChange(event,minRef)} />
+      <input type='number' placeholder={'1'} onChange={(event) => onChange(event, minRef)} />
 
       <span>Max value</span>
-      <input type='number' placeholder={'60'} onChange={(event) => onChange(event,maxRef)} />
+      <input type='number' placeholder={'60'} onChange={(event) => onChange(event, maxRef)} />
 
       <button onClick={handleRandomNumbers}>Sortear</button>
     </div>
