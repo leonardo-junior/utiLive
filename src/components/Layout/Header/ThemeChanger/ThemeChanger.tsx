@@ -6,7 +6,7 @@ import { FiMoon, FiSun } from 'react-icons/fi'
 // styles
 import styles from './ThemeChanger.module.scss'
 
-function ThemeChanger () {
+function ThemeChanger() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -16,7 +16,7 @@ function ThemeChanger () {
 
   if (!mounted) return null
 
-  function toggleTheme () {
+  function toggleTheme() {
     const newTheme = theme === 'light' ? 'dark' : 'light'
 
     setTheme(newTheme)

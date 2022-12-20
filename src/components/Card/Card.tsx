@@ -11,17 +11,16 @@ type CardProps = Omit<React.AllHTMLAttributes<HTMLDivElement>, 'className'> & {
   className?: string
 }
 
-function Card ({ anchor, keyName, className = '', ...props }: CardProps): JSX.Element {
-  return(
-    <div className={clsx({
-      [className]: !!className,
-      [styles.container]: true
+function Card({ anchor, keyName, className = '', ...props }: CardProps): JSX.Element {
+  return (
+    <div
+      className={clsx({
+        [className]: !!className,
+        [styles.container]: true,
       })}
       {...props}
     >
-      <Link href={anchor}>
-        {keyName}
-      </Link>
+      <Link href={anchor}>{keyName}</Link>
     </div>
   )
 }

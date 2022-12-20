@@ -1,7 +1,7 @@
 // vendors
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-function useLocalStorage<T> (key: string, defaultValue?: T): [T, Dispatch<SetStateAction<T>>] {
+function useLocalStorage<T>(key: string, defaultValue?: T): [T, Dispatch<SetStateAction<T>>] {
   const [value, setValue] = useState(defaultValue as unknown as T)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function useLocalStorage<T> (key: string, defaultValue?: T): [T, Dispatch<SetSta
   }, [key])
 
   useEffect(() => {
-      try {
+    try {
       localStorage.setItem(key, JSON.stringify(value))
     } catch (error) {
       console.log(error)

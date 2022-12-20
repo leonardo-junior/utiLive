@@ -9,7 +9,7 @@ import PomodoroRunning from '../components/Pomodoro/PomodoroRunning/PomodoroRunn
 // styles
 import styles from '../styles/Pomodoro.module.scss'
 
-function Pomodoro (): JSX.Element {
+function Pomodoro(): JSX.Element {
   const [workTime, setWorkTime] = useState(25)
   const [breakTime, setBreakTime] = useState(5)
 
@@ -27,12 +27,12 @@ function Pomodoro (): JSX.Element {
   const intervalWorkRef = useRef<NodeJS.Timer>()
   const intervalBreakRef = useRef<NodeJS.Timer>()
 
-  function clearIntervals () {
+  function clearIntervals() {
     clearInterval(intervalBreakRef.current)
     clearInterval(intervalWorkRef.current)
   }
 
-  function convertToMinutes (timeInSeconds: number) {
+  function convertToMinutes(timeInSeconds: number) {
     const minutes = Math.floor(+timeInSeconds / 60)
     const seconds = +timeInSeconds % 60
 
@@ -42,17 +42,17 @@ function Pomodoro (): JSX.Element {
     return `${shownMinutes}:${shownSeconds}`
   }
 
-  function changeToWorkTime () {
+  function changeToWorkTime() {
     setIsToShowWork(true)
     setIsToShowBreak(false)
   }
 
-  function changeToBreakTime () {
+  function changeToBreakTime() {
     setIsToShowBreak(true)
     setIsToShowWork(false)
   }
 
-  function onGoToBreak () {
+  function onGoToBreak() {
     const resetTime = breakTime * 60
 
     setShowBreakTime(convertToMinutes(resetTime))
@@ -64,7 +64,7 @@ function Pomodoro (): JSX.Element {
     changeToBreakTime()
   }
 
-  function onGoToWork () {
+  function onGoToWork() {
     const resetTime = workTime * 60
 
     setShowWorkTime(convertToMinutes(resetTime))
@@ -76,7 +76,7 @@ function Pomodoro (): JSX.Element {
     changeToWorkTime()
   }
 
-  function onStartTimer () {
+  function onStartTimer() {
     if (isRunning) return
 
     setShowWorkTime(convertToMinutes(workTime * 60))
@@ -91,13 +91,13 @@ function Pomodoro (): JSX.Element {
     runWorkTime()
   }
 
-  function onPauseTimer () {
+  function onPauseTimer() {
     clearIntervals()
 
     setIsRunning(false)
   }
 
-  function onResetTimer () {
+  function onResetTimer() {
     clearIntervals()
 
     setIsRunning(false)
@@ -106,7 +106,7 @@ function Pomodoro (): JSX.Element {
     setIsToShowWork(false)
   }
 
-  function runWorkTime () {
+  function runWorkTime() {
     if (isRunning) return
 
     intervalWorkRef.current = setInterval(() => {
@@ -118,7 +118,7 @@ function Pomodoro (): JSX.Element {
 
       runningTimeWorkRef.current = newTime
 
-      if(newTime < 1) {
+      if (newTime < 1) {
         clearIntervals()
 
         runningTimeWorkRef.current = workTime * 60
@@ -132,7 +132,7 @@ function Pomodoro (): JSX.Element {
     setIsRunning(true)
   }
 
-  function runBreakTime () {
+  function runBreakTime() {
     if (isRunning) return
 
     intervalBreakRef.current = setInterval(() => {
@@ -144,7 +144,7 @@ function Pomodoro (): JSX.Element {
 
       runningTimeBreakRef.current = newTime
 
-      if(newTime < 1) {
+      if (newTime < 1) {
         clearIntervals()
 
         runningTimeBreakRef.current = breakTime * 60
@@ -158,11 +158,10 @@ function Pomodoro (): JSX.Element {
     setIsRunning(true)
   }
 
-
   return (
-    <Layout title='Pomodoro' description='Pomodoro timer'>
+    <Layout title="Pomodoro" description="Pomodoro timer">
       <div className={styles.container}>
-        {isToShowConfig &&
+        {isToShowConfig && (
           <PomodoroSettings
             workTime={workTime}
             breakTime={breakTime}
@@ -170,29 +169,29 @@ function Pomodoro (): JSX.Element {
             setBreakTime={setBreakTime}
             onStartTimer={onStartTimer}
           />
-        }
+        )}
 
-        {isToShowWork &&
+        {isToShowWork && (
           <PomodoroRunning
-            text='Tempo Trabalho'
+            text="Tempo Trabalho"
             shownTime={showWorkTime}
             onPlay={runWorkTime}
             onPause={onPauseTimer}
             onReset={onResetTimer}
             onSwapTime={onGoToBreak}
           />
-        }
+        )}
 
-        {isToShowBreak &&
+        {isToShowBreak && (
           <PomodoroRunning
-            text='Tempo Descanso'
+            text="Tempo Descanso"
             shownTime={showBreakTime}
             onPlay={runBreakTime}
             onPause={onPauseTimer}
             onReset={onResetTimer}
             onSwapTime={onGoToWork}
           />
-        }
+        )}
       </div>
     </Layout>
   )

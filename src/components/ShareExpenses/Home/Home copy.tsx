@@ -19,10 +19,10 @@ type PayerProps = {
 
 type ExpenseProps = {
   name: string
-  payers: PayerProps []
+  payers: PayerProps[]
 }
 
-function Home (): JSX.Element {
+function Home(): JSX.Element {
   const [payers, setPayers] = useState<string[]>([])
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
@@ -31,28 +31,28 @@ function Home (): JSX.Element {
 
   const elInputRef = useRef<HTMLInputElement>(null)
 
-  function onChangeExpenseName (event: ChangeEvent<HTMLInputElement>) {
+  function onChangeExpenseName(event: ChangeEvent<HTMLInputElement>) {
     const expenseName = event.target.value
 
     expenseNameInputRef.current = expenseName
   }
 
-  function onChangePayerName (event: ChangeEvent<HTMLInputElement>) {
+  function onChangePayerName(event: ChangeEvent<HTMLInputElement>) {
     const payerName = event.target.value
 
     payerNameInputRef.current = payerName
   }
 
-  function onAddPeople () {
-    if(!payerNameInputRef.current) return
+  function onAddPeople() {
+    if (!payerNameInputRef.current) return
 
-    if(!payers.includes(payerNameInputRef.current)) {
+    if (!payers.includes(payerNameInputRef.current)) {
       const payerName = payerNameInputRef.current.trim()
       const newPayers = [...payers, payerName]
 
       setPayers(newPayers)
 
-      if(elInputRef.current) {
+      if (elInputRef.current) {
         elInputRef.current.value = ''
       }
     }
@@ -64,10 +64,8 @@ function Home (): JSX.Element {
     setPayers(newPayers)
   }
 
-  function onStartCalculate () {
-    const expenseName = expenseNameInputRef.current
-    ? expenseNameInputRef.current
-    : `Gastos ${payers.length}` //improve in future
+  function onStartCalculate() {
+    const expenseName = expenseNameInputRef.current ? expenseNameInputRef.current : `Gastos ${payers.length}` //improve in future
 
     const dataPayers = payers.map((name) => {
       return {
@@ -78,7 +76,7 @@ function Home (): JSX.Element {
 
     const expenses = {
       name: expenseName,
-      payers: dataPayers
+      payers: dataPayers,
     }
 
     const newData = [...expensesData, expenses]
@@ -91,7 +89,7 @@ function Home (): JSX.Element {
       <section>
         <h1>O que calcular</h1>
 
-        <input onChange={onChangeExpenseName} placeholder='Nome do cálculo'/>
+        <input onChange={onChangeExpenseName} placeholder="Nome do cálculo" />
       </section>
 
       <section>
@@ -100,23 +98,23 @@ function Home (): JSX.Element {
         <ul>
           {payers.map((name, index) => {
             return (
-            <li key={index}>
-              <div>
-                <span>{name}</span>
-                <button onClick={() => deletePayer(index)}>X</button>
-              </div>
+              <li key={index}>
+                <div>
+                  <span>{name}</span>
+                  <button onClick={() => deletePayer(index)}>X</button>
+                </div>
 
-              <ul>
-                
-              </ul>
-            </li>
+                <ul></ul>
+              </li>
             )
           })}
         </ul>
 
-        <input ref={elInputRef} onChange={onChangePayerName} placeholder='Nome pessoa'/>
+        <input ref={elInputRef} onChange={onChangePayerName} placeholder="Nome pessoa" />
 
-        <button type='button' onClick={onAddPeople}>Adicionar pessoa</button>
+        <button type="button" onClick={onAddPeople}>
+          Adicionar pessoa
+        </button>
       </section>
 
       <button onClick={onStartCalculate}>Começar cálculo</button>
@@ -126,39 +124,39 @@ function Home (): JSX.Element {
 
 export default Home
 
-  // const Example = {
-  //   ['março']: [
-  //     {
-  //       name: 'Natiele',
-  //       despesas: [
-  //         { costName: 'agua', cost: 80 },
-  //         { costName: 'energia', cost: 200 },
-  //       ],
-  //     },
-  //     {
-  //       name: 'leonardo',
-  //       despesas: [
-  //         { costName: 'gas', cost: 10 },
-  //         { costName: 'compras', cost: 400 },
-  //       ],
-  //     },
-  //   ],
-  //   ['abril']: [
-  //     {
-  //       name: 'Natiele',
-  //       despesas: [
-  //         { costName: 'agua', cost: 80 },
-  //         { costName: 'energia', cost: 200 },
-  //       ],
-  //     },
-  //     {
-  //       name: 'leonardo',
-  //       despesas: [
-  //         { costName: 'gas', cost: 10 },
-  //         { costName: 'compras', cost: 400 },
-  //       ],
-  //     },
-  //   ],
-  // }
+// const Example = {
+//   ['março']: [
+//     {
+//       name: 'Natiele',
+//       despesas: [
+//         { costName: 'agua', cost: 80 },
+//         { costName: 'energia', cost: 200 },
+//       ],
+//     },
+//     {
+//       name: 'leonardo',
+//       despesas: [
+//         { costName: 'gas', cost: 10 },
+//         { costName: 'compras', cost: 400 },
+//       ],
+//     },
+//   ],
+//   ['abril']: [
+//     {
+//       name: 'Natiele',
+//       despesas: [
+//         { costName: 'agua', cost: 80 },
+//         { costName: 'energia', cost: 200 },
+//       ],
+//     },
+//     {
+//       name: 'leonardo',
+//       despesas: [
+//         { costName: 'gas', cost: 10 },
+//         { costName: 'compras', cost: 400 },
+//       ],
+//     },
+//   ],
+// }
 
-  // const testeAriel = Example['março'].find(name => name.name ==='leonardo')?.despesas
+// const testeAriel = Example['março'].find(name => name.name ==='leonardo')?.despesas

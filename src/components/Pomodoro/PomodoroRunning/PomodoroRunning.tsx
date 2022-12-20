@@ -10,7 +10,14 @@ type PomodoroRunningProps = {
   onSwapTime: () => void
 }
 
-function PomodoroRunning ({text, shownTime, onPlay, onPause, onReset, onSwapTime}: PomodoroRunningProps): JSX.Element {
+function PomodoroRunning({
+  text,
+  shownTime,
+  onPlay,
+  onPause,
+  onReset,
+  onSwapTime,
+}: PomodoroRunningProps): JSX.Element {
   return (
     <div className={styles.container}>
       <div>

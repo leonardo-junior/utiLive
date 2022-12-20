@@ -15,8 +15,8 @@ type LayoutProps = {
   canonical?: string
 }
 
-function Layout ({children, title, description, canonical}:LayoutProps): JSX.Element {
-  return(
+function Layout({ children, title, description, canonical }: LayoutProps): JSX.Element {
+  return (
     <>
       <Head>
         <title>{title}</title>

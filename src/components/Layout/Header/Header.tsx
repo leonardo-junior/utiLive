@@ -1,12 +1,11 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 // styles
 import styles from './Header.module.scss'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 
-function Header (): JSX.Element{
-  return(
+function Header(): JSX.Element {
+  return (
     <nav className={styles.nav}>
-      <a href='/'>UtiLive</a>
+      <a href="/">UtiLive</a>
       <ThemeChanger />
       <div>Menu</div>
     </nav>
