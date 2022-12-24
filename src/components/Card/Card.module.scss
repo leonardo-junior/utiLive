@@ -16,6 +16,7 @@
 
   @media (pointer) {
     &:hover{
+      scale: 1.01;
       cursor: pointer;
     }
   }
