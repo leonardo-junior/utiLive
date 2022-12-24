@@ -31,9 +31,7 @@ Para instalar todas bibliotecas e dependências necessárias.
 ### `yarn dev`
 
 Roda localmente a aplicação em modo de desenvolvimento.
-
-É gerado um endereço no próprio terminal para acesso da aplicação.
-É possivel também abrir no endereço http://localhost:3000
+É possivel abrir no endereço http://localhost:3000
 
 Com o acesso, a página recarrega automaticamente caso efetue uma edição no código.
 É possível ver no próprio console do navegador os erros, caso ocorram.
