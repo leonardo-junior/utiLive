@@ -30,11 +30,18 @@ function Random(): JSX.Element {
       }
     }
 
-    return drawed
+    const ordenedDraw = drawed.sort((a, b) => a - b)
+
+    return ordenedDraw
   }
 
   function handleRandomNumbers() {
-    const randoms = getRandomNumbers(6)
+    const maxNumberToDrawn = maxRef.current - minRef.current + 1
+    const hasEnoughNumbersToDrawn = numbersOfDrawRef.current <= maxNumberToDrawn
+
+    if (!hasEnoughNumbersToDrawn) return
+
+    const randoms = getRandomNumbers(numbersOfDrawRef.current)
 
     setDrawedNumber(randoms)
   }
