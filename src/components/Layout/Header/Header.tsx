@@ -9,7 +9,7 @@ function Header(): JSX.Element {
   return (
     <nav className={styles.nav}>
       <header>
-        <Link href="/">UtiLive</Link>
+        <Link href="/">utiLive</Link>
 
         {/* <ThemeChanger /> */}
 
