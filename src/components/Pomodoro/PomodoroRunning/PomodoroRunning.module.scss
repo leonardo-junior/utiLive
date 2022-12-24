@@ -1,11 +1,10 @@
-.container {
+.content {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
 .buttons {
-  button {
-    margin: 0.25rem;
-  }
+  display: flex;
+  gap: 0.5rem;
 }

@@ -1,9 +1,36 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .timers {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   div {
     margin: 2rem
+  }
+}
+
+.icon {
+  background: none;
+  border: none;
+
+  @media (pointer) {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

@@ -1,5 +1,10 @@
 // vendors
 import { SetStateAction } from 'react'
+import { FaPlus, FaMinus } from 'react-icons/fa'
+
+// components
+import { Button } from '../../Button/Button'
+import { Container } from '../../Container/Container'
 
 // styles
 import styles from './PomodoroSettings.module.scss'
@@ -19,53 +24,66 @@ export const PomodoroSettings = ({
   setBreakTime,
   onStartTimer,
 }: PomodoroSettingsProps): JSX.Element => {
-  // TODO limit time work and break
   // TODO add hold button and change value
   function plusWorkTime() {
+    if (workTime >= 120) return
+
     setWorkTime((prev) => prev + 5)
   }
 
   function lessWorkTime() {
-    if (workTime > 15) {
-      setWorkTime((prev) => prev - 5)
-    }
+    if (workTime <= 15) return
+
+    setWorkTime((prev) => prev - 5)
   }
 
   function plusBreakTime() {
+    if (breakTime >= 30) return
+
     setBreakTime((prev) => prev + 1)
   }
 
   function lessBreakTime() {
-    if (breakTime > 3) {
-      setBreakTime((prev) => prev - 1)
-    }
+    if (breakTime <= 3) return
+
+    setBreakTime((prev) => prev - 1)
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.timers}>
-        <div>
-          <h1>Trabalho</h1>
+    <Container title="Pomodoro">
+      <div className={styles.content}>
+        <div className={styles.timers}>
+          <section>
+            <h2>Trabalho</h2>
 
-          <button onClick={plusWorkTime}>Mais</button>
+            <Button icon onClick={plusWorkTime}>
+              <FaPlus />
+            </Button>
 
-          <h2>{workTime}</h2>
+            <h3>{workTime}</h3>
 
-          <button onClick={lessWorkTime}>Menos</button>
+            <Button icon onClick={lessWorkTime}>
+              <FaMinus />
+            </Button>
+          </section>
+
+          <section>
+            <h2>Descanso</h2>
+
+            <Button icon onClick={plusBreakTime}>
+              <FaPlus />
+            </Button>
+
+            <h3>{breakTime}</h3>
+
+            <Button icon onClick={lessBreakTime}>
+              <FaMinus />
+            </Button>
+          </section>
         </div>
 
-        <div>
-          <h1>Descanso</h1>
-
-          <button onClick={plusBreakTime}>Mais</button>
-
-          <h2>{breakTime}</h2>
-
-          <button onClick={lessBreakTime}>Menos</button>
-        </div>
+        <Button text="Iniciar" onClick={onStartTimer} />
       </div>
-
-      <button onClick={onStartTimer}>Iniciar</button>
-    </div>
+    </Container>
   )
 }

@@ -1,9 +1,17 @@
+// vendors
+import { FaPlay, FaStop, FaPause, FaExchangeAlt } from 'react-icons/fa'
+
+// components
+import { Button } from '../../Button/Button'
+import { Container } from '../../Container/Container'
+
 // styles
 import styles from './PomodoroRunning.module.scss'
 
 type PomodoroRunningProps = {
   text: string
   shownTime: string
+  isRunning: boolean
   onPlay: () => void
   onPause: () => void
   onReset: () => void
@@ -13,28 +21,33 @@ type PomodoroRunningProps = {
 export const PomodoroRunning = ({
   text,
   shownTime,
+  isRunning,
   onPlay,
   onPause,
   onReset,
   onSwapTime,
 }: PomodoroRunningProps): JSX.Element => {
   return (
-    <div className={styles.container}>
-      <div>
-        <h1>{text}</h1>
+    <Container title="Pomodoro">
+      <div className={styles.content}>
+        <h2>{text}</h2>
 
-        <h2>{shownTime}</h2>
+        <h3>{shownTime}</h3>
 
         <div className={styles.buttons}>
-          <button onClick={onPlay}>Iniciar</button>
+          <Button icon onClick={isRunning ? onPause : onPlay}>
+            {isRunning ? <FaPause /> : <FaPlay />}
+          </Button>
 
-          <button onClick={onPause}>Pausar</button>
+          <Button onClick={onReset}>
+            <FaStop />
+          </Button>
 
-          <button onClick={onReset}>Parar</button>
-
-          <button onClick={onSwapTime}>Trocar</button>
+          <Button onClick={onSwapTime}>
+            <FaExchangeAlt />
+          </Button>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

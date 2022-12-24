@@ -6,9 +6,6 @@ import { Layout } from '../components/Layout/Layout'
 import { PomodoroSettings } from '../components/Pomodoro/PomodoroSettings/PomodoroSettings'
 import { PomodoroRunning } from '../components/Pomodoro/PomodoroRunning/PomodoroRunning'
 
-// styles
-import styles from '../styles/Pomodoro.module.scss'
-
 function Pomodoro(): JSX.Element {
   const [workTime, setWorkTime] = useState(25)
   const [breakTime, setBreakTime] = useState(5)
@@ -160,7 +157,7 @@ function Pomodoro(): JSX.Element {
 
   return (
     <Layout title="Pomodoro" description="Pomodoro timer">
-      <div className={styles.container}>
+      <>
         {isToShowConfig && (
           <PomodoroSettings
             workTime={workTime}
@@ -173,7 +170,8 @@ function Pomodoro(): JSX.Element {
 
         {isToShowWork && (
           <PomodoroRunning
-            text="Tempo Trabalho"
+            text="Trabalho"
+            isRunning={isRunning}
             shownTime={showWorkTime}
             onPlay={runWorkTime}
             onPause={onPauseTimer}
@@ -184,7 +182,8 @@ function Pomodoro(): JSX.Element {
 
         {isToShowBreak && (
           <PomodoroRunning
-            text="Tempo Descanso"
+            text="Descanso"
+            isRunning={isRunning}
             shownTime={showBreakTime}
             onPlay={runBreakTime}
             onPause={onPauseTimer}
@@ -192,7 +191,7 @@ function Pomodoro(): JSX.Element {
             onSwapTime={onGoToWork}
           />
         )}
-      </div>
+      </>
     </Layout>
   )
 }
