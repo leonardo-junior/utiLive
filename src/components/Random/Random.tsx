@@ -1,5 +1,7 @@
 // vendors
 import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
+import { FaArrowRight, FaArrowDown } from 'react-icons/fa'
+import { Disclosure } from '@headlessui/react'
 
 // styles
 import styles from './Random.module.scss'
@@ -48,24 +50,51 @@ function Random(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      <h2>Números da sorte</h2>
+      <h1>Números da sorte</h1>
 
-      <div className={styles.drawedNumbers}>
-        {drawedNumber?.map((val, index) => {
-          return <span key={index}>{val}</span>
-        })}
-      </div>
+      <section className={styles.content}>
+        <div className={styles.drawedNumbers}>
+          {drawedNumber?.map((val, index) => {
+            return <span key={index}>{val}</span>
+          })}
+        </div>
 
-      <span>Quantidade de números a sortear</span>
-      <input type="number" placeholder={'6'} onChange={(event) => onChange(event, numbersOfDrawRef)} />
+        <button className={styles.button} onClick={handleRandomNumbers}>
+          Sortear
+        </button>
 
-      <span>Valor mínimo</span>
-      <input type="number" placeholder={'1'} onChange={(event) => onChange(event, minRef)} />
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className={styles.button}>
+                <span>Alterar regras sorteio</span>
 
-      <span>Valor máximo</span>
-      <input type="number" placeholder={'60'} onChange={(event) => onChange(event, maxRef)} />
+                {open ? <FaArrowDown /> : <FaArrowRight />}
+              </Disclosure.Button>
 
-      <button onClick={handleRandomNumbers}>Sortear</button>
+              <Disclosure.Panel className={styles.rulesContainer}>
+                <label>Quantidade de números a sortear</label>
+                <input
+                  type="number"
+                  placeholder={'6'}
+                  onChange={(event) => onChange(event, numbersOfDrawRef)}
+                />
+
+                <label htmlFor="min-value">Valor mínimo</label>
+                <input
+                  name="min-value"
+                  type="number"
+                  placeholder={'1'}
+                  onChange={(event) => onChange(event, minRef)}
+                />
+
+                <label>Valor máximo</label>
+                <input type="number" placeholder={'60'} onChange={(event) => onChange(event, maxRef)} />
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+      </section>
     </div>
   )
 }
