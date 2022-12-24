@@ -1,6 +1,6 @@
 // vendors
 import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
-import { FaArrowRight, FaArrowDown } from 'react-icons/fa'
+import { FaAngleRight, FaAngleDown } from 'react-icons/fa'
 import { Disclosure } from '@headlessui/react'
 
 // components
@@ -69,7 +69,7 @@ export const Random = (): JSX.Element => {
               <Disclosure.Button className={styles.button}>
                 <span>Alterar regras sorteio</span>
 
-                {open ? <FaArrowDown /> : <FaArrowRight />}
+                {open ? <FaAngleDown /> : <FaAngleRight />}
               </Disclosure.Button>
 
               <Disclosure.Panel className={styles.rulesContainer}>
