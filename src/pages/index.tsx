@@ -9,9 +9,12 @@ function Home(): JSX.Element {
   return (
     <Layout title="Home Page" description="A simple page">
       <div className={styles.container}>
-        <Card anchor="/random-number" keyName="Loteria" />
-        <Card anchor="/pomodoro" keyName="Pomodoro" />
-        <Card anchor="/calcula-gastos" keyName="Cálculo Gastos" />
+        <Card anchor="/random-number" keyName="Loteria" image="random-number.png" />
+
+        <Card anchor="/pomodoro" keyName="Pomodoro" image="pomodoro.png" />
+
+        <Card anchor="/calculate-expenses" keyName="Cálculo Gastos" image="calculate-expenses.png" />
+
         <Card anchor="/" keyName="Contador palavras" className={styles.incomplete} />
       </div>
     </Layout>

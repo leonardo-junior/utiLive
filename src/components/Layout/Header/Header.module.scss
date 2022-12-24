@@ -1,8 +1,22 @@
 .nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   height: 5rem;
-  padding: 1rem;
-  background-color: rgb(202, 202, 202);
+  background: #1e293b;
+  color: #f8fafc;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+    margin: auto;
+    max-width: 1440px;
+
+    a {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
 }
+

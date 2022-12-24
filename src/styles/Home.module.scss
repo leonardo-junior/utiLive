@@ -1,15 +1,19 @@
 .container {
   display: grid;
+  padding: 2rem;
+  gap: 2rem;
 
   @media screen and (min-width: 768px) {
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 4rem;
+    gap: 4rem;
   }
 
   @media screen and (min-width: 1080px) {
-    grid-template-columns: 2fr 2fr 2fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 .incomplete {
-  background-color: rgb(193, 99, 99);
+  background-color: rgb(193, 99, 99) !important;
 }

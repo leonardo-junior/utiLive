@@ -1,13 +1,20 @@
+// vendors
+import Link from 'next/link'
+// import ThemeChanger from './ThemeChanger/ThemeChanger'
+
 // styles
 import styles from './Header.module.scss'
-import ThemeChanger from './ThemeChanger/ThemeChanger'
 
 function Header(): JSX.Element {
   return (
     <nav className={styles.nav}>
-      <a href="/">UtiLive</a>
-      <ThemeChanger />
-      <div>Menu</div>
+      <header>
+        <Link href="/">UtiLive</Link>
+
+        {/* <ThemeChanger /> */}
+
+        {/* <div>Menu</div> */}
+      </header>
     </nav>
   )
 }

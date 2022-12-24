@@ -3,8 +3,12 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  background: #0f172a;
 }
 
 .content {
+  align-self: center;
+  width: 100%;
+  max-width: 1440px;
   flex: 1;
 }
