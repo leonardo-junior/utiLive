@@ -5,6 +5,7 @@ import { Disclosure } from '@headlessui/react'
 
 // components
 import { Button } from '../Button/Button'
+import { Container } from '../Container/Container'
 
 // styles
 import styles from './Random.module.scss'
@@ -52,9 +53,7 @@ export const Random = (): JSX.Element => {
   }
 
   return (
-    <div className={styles.container}>
-      <h1>Números da sorte</h1>
-
+    <Container title="Números da sorte">
       <section className={styles.content}>
         <div className={styles.drawedNumbers}>
           {drawedNumber?.map((val, index) => {
@@ -96,6 +95,6 @@ export const Random = (): JSX.Element => {
           )}
         </Disclosure>
       </section>
-    </div>
+    </Container>
   )
 }
