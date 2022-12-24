@@ -22,7 +22,7 @@ type ExpenseProps = {
   payers: PayerProps[]
 }
 
-function Home(): JSX.Element {
+export const Home = (): JSX.Element => {
   const [payers, setPayers] = useState<PayerProps[]>([])
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
@@ -180,8 +180,6 @@ function Home(): JSX.Element {
     </main>
   )
 }
-
-export default Home
 
 // const Example = {
 //   ['março']: [

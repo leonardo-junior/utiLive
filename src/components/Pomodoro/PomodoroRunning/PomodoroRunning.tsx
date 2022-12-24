@@ -10,14 +10,14 @@ type PomodoroRunningProps = {
   onSwapTime: () => void
 }
 
-function PomodoroRunning({
+export const PomodoroRunning = ({
   text,
   shownTime,
   onPlay,
   onPause,
   onReset,
   onSwapTime,
-}: PomodoroRunningProps): JSX.Element {
+}: PomodoroRunningProps): JSX.Element => {
   return (
     <div className={styles.container}>
       <div>
@@ -26,14 +26,15 @@ function PomodoroRunning({
         <h2>{shownTime}</h2>
 
         <div className={styles.buttons}>
-          <button onClick={onPlay}>Play</button>
+          <button onClick={onPlay}>Iniciar</button>
+
           <button onClick={onPause}>Pausar</button>
-          <button onClick={onReset}>Stop</button>
+
+          <button onClick={onReset}>Parar</button>
+
           <button onClick={onSwapTime}>Trocar</button>
         </div>
       </div>
     </div>
   )
 }
-
-export default PomodoroRunning

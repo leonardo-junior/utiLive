@@ -12,13 +12,15 @@ type PomodoroSettingsProps = {
   onStartTimer: () => void
 }
 
-function PomodoroSettings({
+export const PomodoroSettings = ({
   workTime,
   setWorkTime,
   breakTime,
   setBreakTime,
   onStartTimer,
-}: PomodoroSettingsProps): JSX.Element {
+}: PomodoroSettingsProps): JSX.Element => {
+  // TODO limit time work and break
+  // TODO add hold button and change value
   function plusWorkTime() {
     setWorkTime((prev) => prev + 5)
   }
@@ -44,15 +46,21 @@ function PomodoroSettings({
       <div className={styles.timers}>
         <div>
           <h1>Trabalho</h1>
+
           <button onClick={plusWorkTime}>Mais</button>
+
           <h2>{workTime}</h2>
+
           <button onClick={lessWorkTime}>Menos</button>
         </div>
 
         <div>
           <h1>Descanso</h1>
+
           <button onClick={plusBreakTime}>Mais</button>
+
           <h2>{breakTime}</h2>
+
           <button onClick={lessBreakTime}>Menos</button>
         </div>
       </div>
@@ -61,5 +69,3 @@ function PomodoroSettings({
     </div>
   )
 }
-
-export default PomodoroSettings

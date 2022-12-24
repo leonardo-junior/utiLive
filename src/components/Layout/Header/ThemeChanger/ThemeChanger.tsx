@@ -6,7 +6,7 @@ import { FiMoon, FiSun } from 'react-icons/fi'
 // styles
 import styles from './ThemeChanger.module.scss'
 
-function ThemeChanger() {
+export const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -30,5 +30,3 @@ function ThemeChanger() {
     </div>
   )
 }
-
-export default ThemeChanger

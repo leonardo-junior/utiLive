@@ -12,7 +12,7 @@ type CardProps = Omit<React.AllHTMLAttributes<HTMLDivElement>, 'className'> & {
   className?: string
 }
 
-function Card({ anchor, keyName, image, className = '', ...props }: CardProps): JSX.Element {
+export const Card = ({ anchor, keyName, image, className = '', ...props }: CardProps): JSX.Element => {
   return (
     <Link href={anchor}>
       <div
@@ -31,5 +31,3 @@ function Card({ anchor, keyName, image, className = '', ...props }: CardProps): 
     </Link>
   )
 }
-
-export default Card

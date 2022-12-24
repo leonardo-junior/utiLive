@@ -1,11 +1,11 @@
 // vendors
 import Link from 'next/link'
-// import ThemeChanger from './ThemeChanger/ThemeChanger'
+// import { ThemeChanger } from './ThemeChanger/ThemeChanger'
 
 // styles
 import styles from './Header.module.scss'
 
-function Header(): JSX.Element {
+export const Header = (): JSX.Element => {
   return (
     <nav className={styles.nav}>
       <header>
@@ -18,5 +18,3 @@ function Header(): JSX.Element {
     </nav>
   )
 }
-
-export default Header

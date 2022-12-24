@@ -1,6 +1,6 @@
 // components
-import Layout from '../components/Layout/Layout'
-import Random from '../components/Random/Random'
+import { Layout } from '../components/Layout/Layout'
+import { Random } from '../components/Random/Random'
 
 function RandomPage(): JSX.Element {
   return (

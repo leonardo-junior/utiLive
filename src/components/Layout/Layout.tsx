@@ -2,8 +2,8 @@
 import Head from 'next/head'
 
 // components
-import Header from './Header/Header'
-import Footer from './Footer/Footer'
+import { Header } from './Header/Header'
+import { Footer } from './Footer/Footer'
 
 // styles
 import styles from './Layout.module.scss'
@@ -15,7 +15,7 @@ type LayoutProps = {
   canonical?: string
 }
 
-function Layout({ children, title, description, canonical }: LayoutProps): JSX.Element {
+export const Layout = ({ children, title, description, canonical }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head>
@@ -36,5 +36,3 @@ function Layout({ children, title, description, canonical }: LayoutProps): JSX.E
     </>
   )
 }
-
-export default Layout

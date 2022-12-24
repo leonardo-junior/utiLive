@@ -9,7 +9,7 @@ import { Button } from '../Button/Button'
 // styles
 import styles from './Random.module.scss'
 
-function Random(): JSX.Element {
+export const Random = (): JSX.Element => {
   const [drawedNumber, setDrawedNumber] = useState<number[]>([])
 
   const minRef = useRef(1)
@@ -99,5 +99,3 @@ function Random(): JSX.Element {
     </div>
   )
 }
-
-export default Random

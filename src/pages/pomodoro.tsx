@@ -2,9 +2,9 @@
 import { useRef, useState } from 'react'
 
 // components
-import Layout from '../components/Layout/Layout'
-import PomodoroSettings from '../components/Pomodoro/PomodoroSettings/PomodoroSettings'
-import PomodoroRunning from '../components/Pomodoro/PomodoroRunning/PomodoroRunning'
+import { Layout } from '../components/Layout/Layout'
+import { PomodoroSettings } from '../components/Pomodoro/PomodoroSettings/PomodoroSettings'
+import { PomodoroRunning } from '../components/Pomodoro/PomodoroRunning/PomodoroRunning'
 
 // styles
 import styles from '../styles/Pomodoro.module.scss'

@@ -2,9 +2,9 @@
 import { useState } from 'react'
 
 // components
-import Layout from '../components/Layout/Layout'
-import Expense from '../components/ShareExpenses/Expense/Expense'
-import Home from '../components/ShareExpenses/Home/Home'
+import { Layout } from '../components/Layout/Layout'
+import { Expense } from '../components/ShareExpenses/Expense/Expense'
+import { Home } from '../components/ShareExpenses/Home/Home'
 
 function ShareExpenses(): JSX.Element {
   const [showFirstInfo, setShowFirstInfo] = useState(true)
