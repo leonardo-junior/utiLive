@@ -1,9 +1,15 @@
 // vendors
 import { useRef, useState } from 'react'
+import { Popover } from '@headlessui/react'
+import { FaExclamation } from 'react-icons/fa'
+
+// components
+import { Container } from '../Container/Container'
 import { PomodoroRunning } from './PomodoroRunning/PomodoroRunning'
 import { PomodoroSettings } from './PomodoroSettings/PomodoroSettings'
 
-// components
+// styles
+import styles from './Pomodoro.module.scss'
 
 export const Pomodoro = (): JSX.Element => {
   const [workTime, setWorkTime] = useState(25)
@@ -156,39 +162,56 @@ export const Pomodoro = (): JSX.Element => {
 
   return (
     <>
-      {isToShowConfig && (
-        <PomodoroSettings
-          workTime={workTime}
-          breakTime={breakTime}
-          setWorkTime={setWorkTime}
-          setBreakTime={setBreakTime}
-          onStartTimer={onStartTimer}
-        />
-      )}
+      <Container title="Pomodoro">
+        <>
+          {isToShowConfig && (
+            <PomodoroSettings
+              workTime={workTime}
+              breakTime={breakTime}
+              setWorkTime={setWorkTime}
+              setBreakTime={setBreakTime}
+              onStartTimer={onStartTimer}
+            />
+          )}
 
-      {isToShowWork && (
-        <PomodoroRunning
-          text="Trabalho"
-          isRunning={isRunning}
-          shownTime={showWorkTime}
-          onPlay={runWorkTime}
-          onPause={onPauseTimer}
-          onReset={onResetTimer}
-          onSwapTime={onGoToBreak}
-        />
-      )}
+          {isToShowWork && (
+            <PomodoroRunning
+              text="Trabalho"
+              isRunning={isRunning}
+              shownTime={showWorkTime}
+              onPlay={runWorkTime}
+              onPause={onPauseTimer}
+              onReset={onResetTimer}
+              onSwapTime={onGoToBreak}
+            />
+          )}
 
-      {isToShowBreak && (
-        <PomodoroRunning
-          text="Descanso"
-          isRunning={isRunning}
-          shownTime={showBreakTime}
-          onPlay={runBreakTime}
-          onPause={onPauseTimer}
-          onReset={onResetTimer}
-          onSwapTime={onGoToWork}
-        />
-      )}
+          {isToShowBreak && (
+            <PomodoroRunning
+              text="Descanso"
+              isRunning={isRunning}
+              shownTime={showBreakTime}
+              onPlay={runBreakTime}
+              onPause={onPauseTimer}
+              onReset={onResetTimer}
+              onSwapTime={onGoToWork}
+            />
+          )}
+
+          <Popover className={styles.popover}>
+            <Popover.Button className={styles.button}>
+              <FaExclamation />
+            </Popover.Button>
+
+            <Popover.Panel className={styles.info}>
+              Pomodoro consiste em um ciclo de duas horas. A cada 25 minutos sem interrupções dedicado a uma
+              tarefa, você deve fazer uma pausa de 5 minutos. Ao final do ciclo de duas horas, você deverá
+              fazer uma pausa maior de 30 minutos e depois começar um novo Pomodoro. Caso deseje pode alterar
+              os tempos para sua melhor adequação.
+            </Popover.Panel>
+          </Popover>
+        </>
+      </Container>
     </>
   )
 }

@@ -4,7 +4,6 @@ import { FaPlus, FaMinus } from 'react-icons/fa'
 
 // components
 import { Button } from '../../Button/Button'
-import { Container } from '../../Container/Container'
 
 // styles
 import styles from './PomodoroSettings.module.scss'
@@ -50,40 +49,38 @@ export const PomodoroSettings = ({
   }
 
   return (
-    <Container title="Pomodoro">
-      <div className={styles.content}>
-        <div className={styles.timers}>
-          <section>
-            <h2>Trabalho</h2>
+    <div className={styles.content}>
+      <div className={styles.timers}>
+        <section>
+          <h2>Trabalho</h2>
 
-            <Button icon onClick={plusWorkTime}>
-              <FaPlus />
-            </Button>
+          <Button icon onClick={plusWorkTime}>
+            <FaPlus />
+          </Button>
 
-            <h3>{workTime}</h3>
+          <h3>{workTime}</h3>
 
-            <Button icon onClick={lessWorkTime}>
-              <FaMinus />
-            </Button>
-          </section>
+          <Button icon onClick={lessWorkTime}>
+            <FaMinus />
+          </Button>
+        </section>
 
-          <section>
-            <h2>Descanso</h2>
+        <section>
+          <h2>Descanso</h2>
 
-            <Button icon onClick={plusBreakTime}>
-              <FaPlus />
-            </Button>
+          <Button icon onClick={plusBreakTime}>
+            <FaPlus />
+          </Button>
 
-            <h3>{breakTime}</h3>
+          <h3>{breakTime}</h3>
 
-            <Button icon onClick={lessBreakTime}>
-              <FaMinus />
-            </Button>
-          </section>
-        </div>
-
-        <Button text="Iniciar" onClick={onStartTimer} />
+          <Button icon onClick={lessBreakTime}>
+            <FaMinus />
+          </Button>
+        </section>
       </div>
-    </Container>
+
+      <Button text="Iniciar" onClick={onStartTimer} />
+    </div>
   )
 }
