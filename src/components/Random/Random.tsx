@@ -3,6 +3,9 @@ import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
 import { FaArrowRight, FaArrowDown } from 'react-icons/fa'
 import { Disclosure } from '@headlessui/react'
 
+// components
+import { Button } from '../Button/Button'
+
 // styles
 import styles from './Random.module.scss'
 
@@ -59,9 +62,7 @@ function Random(): JSX.Element {
           })}
         </div>
 
-        <button className={styles.button} onClick={handleRandomNumbers}>
-          Sortear
-        </button>
+        <Button text="Sortear" onClick={handleRandomNumbers} />
 
         <Disclosure>
           {({ open }) => (
