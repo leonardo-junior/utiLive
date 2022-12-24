@@ -49,13 +49,13 @@ function Random(): JSX.Element {
         })}
       </div>
 
-      <span>Quantity of number drawed</span>
+      <span>Quantidade de números a sortear</span>
       <input type="number" placeholder={'6'} onChange={(event) => onChange(event, numbersOfDrawRef)} />
 
-      <span>Min value</span>
+      <span>Valor mínimo</span>
       <input type="number" placeholder={'1'} onChange={(event) => onChange(event, minRef)} />
 
-      <span>Max value</span>
+      <span>Valor máximo</span>
       <input type="number" placeholder={'60'} onChange={(event) => onChange(event, maxRef)} />
 
       <button onClick={handleRandomNumbers}>Sortear</button>

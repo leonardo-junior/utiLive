@@ -9,7 +9,7 @@ function Home(): JSX.Element {
   return (
     <Layout title="Home Page" description="A simple page">
       <div className={styles.container}>
-        <Card anchor="/random-number" keyName="Loteria" image="random-number.png" />
+        <Card anchor="/random-number" keyName="Números da sorte" image="random-number.png" />
 
         <Card anchor="/pomodoro" keyName="Pomodoro" image="pomodoro.png" />
 
