@@ -4,3 +4,20 @@
   align-items: center;
   justify-content: center;
 }
+
+.drawedNumbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    width: 2.25rem;
+    padding: 0.5rem;
+    border: 1px solid #3c3c3c;
+    border-radius: 50%;
+  }
+}

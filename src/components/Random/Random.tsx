@@ -43,7 +43,7 @@ function Random(): JSX.Element {
     <div className={styles.container}>
       <h2>Números da sorte</h2>
 
-      <div>
+      <div className={styles.drawedNumbers}>
         {drawedNumber?.map((val, index) => {
           return <span key={index}>{val}</span>
         })}
