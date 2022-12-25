@@ -163,7 +163,7 @@ export const Pomodoro = (): JSX.Element => {
   return (
     <>
       <Container title="Pomodoro">
-        <>
+        <section className={styles.content}>
           {isToShowConfig && (
             <PomodoroSettings
               workTime={workTime}
@@ -210,7 +210,7 @@ export const Pomodoro = (): JSX.Element => {
               os tempos para sua melhor adequação.
             </Popover.Panel>
           </Popover>
-        </>
+        </section>
       </Container>
     </>
   )
