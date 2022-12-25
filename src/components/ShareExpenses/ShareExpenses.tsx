@@ -1,12 +1,12 @@
 // components
-import { ChangeEvent, FormEvent, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 
 // hooks
-import useLocalStorage from '../../../hooks/useLocalStorage'
-import { Container } from '../../Container/Container'
+import useLocalStorage from '../../hooks/useLocalStorage'
+import { Container } from '../Container/Container'
 
 // styles
-import styles from './Home.module.scss'
+import styles from './ShareExpenses.module.scss'
 
 type SpendProps = {
   name: string
