@@ -1,0 +1,14 @@
+.content {
+  width: 100%;
+}
+
+.payerName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addSpend {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
