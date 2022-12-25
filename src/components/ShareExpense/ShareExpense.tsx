@@ -1,29 +1,33 @@
-// components
+// vendors
 import { ChangeEvent, useRef, useState } from 'react'
+
+// components
+import { Button } from '../Button/Button'
+import { Container } from '../Container/Container'
+import { Input } from '../Input/Input'
 
 // hooks
 import useLocalStorage from '../../hooks/useLocalStorage'
-import { Container } from '../Container/Container'
 
 // styles
-import styles from './ShareExpenses.module.scss'
+import styles from './ShareExpense.module.scss'
 
-type SpendProps = {
+export type SpendProps = {
   name: string
   cost: number
 }
 
-type PayerProps = {
+export type PayerProps = {
   name: string
   spends: SpendProps[]
 }
 
-type ExpenseProps = {
+export type ExpenseProps = {
   name: string
   payers: PayerProps[]
 }
 
-export const ShareExpenses = (): JSX.Element => {
+export const ShareExpense = (): JSX.Element => {
   const [payers, setPayers] = useState<PayerProps[]>([])
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
@@ -31,8 +35,6 @@ export const ShareExpenses = (): JSX.Element => {
   const payerNameInputRef = useRef('')
   const nameCostInputRef = useRef('')
   const valueCostInputRef = useRef(0)
-
-  const elInputRef = useRef<HTMLInputElement>(null)
 
   function onChangeExpenseName(event: ChangeEvent<HTMLInputElement>) {
     const expenseName = event.target.value
@@ -74,10 +76,6 @@ export const ShareExpenses = (): JSX.Element => {
       const newPayers = [...payers, newPayer]
 
       setPayers(newPayers)
-
-      if (elInputRef.current) {
-        elInputRef.current.value = ''
-      }
     }
   }
 
@@ -133,52 +131,49 @@ export const ShareExpenses = (): JSX.Element => {
 
   return (
     <Container title="Divisão de gastos">
-      <>
+      <div className={styles.container}>
         <section>
-          <h2>O que calcular</h2>
-
-          <input onChange={onChangeExpenseName} placeholder="Gastos" />
+          <Input onChange={onChangeExpenseName} label="Descrição despesa" placeholder="Despesa" />
         </section>
 
         <section>
-          <h3>Nome da pessoa pra divisão</h3>
+          <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" />
 
+          <Button text="Acidicionar pessoa" onClick={onAddPeople} type="button" />
+        </section>
+
+        <section>
           <ul>
             {payers.map((payer, index) => {
               return (
                 <li key={index}>
                   <div>
                     <span>{payer.name}</span>
+
                     <button onClick={() => deletePayer(index)}>X</button>
                   </div>
 
                   <div>
-                    <input type="text" onChange={onChangeNameCost} />
+                    <Input onChange={onChangeNameCost} placeholder={'Nome do gasto'} />
 
-                    <input type="number" onChange={onChangeValueCost} />
+                    <Input type="number" onChange={onChangeValueCost} placeholder={'Valor'} />
 
                     <button onClick={() => onAddCost(index)}>Adicionar</button>
                   </div>
 
                   <ul>
                     {payer.spends.map((val, index) => {
-                      console.log(val.name)
-                      return <span key={index}>{val.name}</span>
+                      return <li key={index}>{val.name}</li>
                     })}
                   </ul>
                 </li>
               )
             })}
           </ul>
-
-          <input ref={elInputRef} onChange={onChangePayerName} placeholder="Nome pessoa" />
-
-          <button type="button" onClick={onAddPeople}>
-            Adicionar pessoa
-          </button>
         </section>
-        <button onClick={onStartCalculate}>Começar cálculo</button>
-      </>
+
+        <Button text="Calcular" onClick={onStartCalculate} />
+      </div>
     </Container>
   )
 }

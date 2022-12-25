@@ -1,11 +1,11 @@
 // components
 import { Layout } from '../components/Layout/Layout'
-import { ShareExpenses } from '../components/ShareExpenses/ShareExpenses'
+import { ShareExpense } from '../components/ShareExpense/ShareExpense'
 
 function ShareExpensesPage(): JSX.Element {
   return (
     <Layout title="Divisão gastos" description="Utilitário de divisão de gastos">
-      <ShareExpenses />
+      <ShareExpense />
     </Layout>
   )
 }
