@@ -1,5 +1,5 @@
 // vendors
-import { ChangeEvent } from 'react'
+import { ChangeEvent, HTMLInputTypeAttribute } from 'react'
 
 // styles
 import styles from './Input.module.scss'
@@ -7,15 +7,16 @@ import styles from './Input.module.scss'
 type InputProps = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   label?: string
-  placeholder: string
+  placeholder?: string
+  type?: HTMLInputTypeAttribute | undefined
 }
 
-export const Input = ({ onChange, placeholder, label }: InputProps): JSX.Element => {
+export const Input = ({ onChange, placeholder, label, type = 'text', ...props }: InputProps): JSX.Element => {
   return (
     <div className={styles.container}>
       {label && <label>{label}</label>}
 
-      <input className={styles.footer} onChange={onChange} placeholder={placeholder} />
+      <input type={type} className={styles.footer} onChange={onChange} placeholder={placeholder} {...props} />
     </div>
   )
 }
