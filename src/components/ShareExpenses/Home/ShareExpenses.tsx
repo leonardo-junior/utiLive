@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 
 // hooks
 import useLocalStorage from '../../../hooks/useLocalStorage'
+import { Container } from '../../Container/Container'
 
 // styles
 import styles from './Home.module.scss'
@@ -22,7 +23,7 @@ type ExpenseProps = {
   payers: PayerProps[]
 }
 
-export const Home = (): JSX.Element => {
+export const ShareExpenses = (): JSX.Element => {
   const [payers, setPayers] = useState<PayerProps[]>([])
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
@@ -131,89 +132,53 @@ export const Home = (): JSX.Element => {
   }
 
   return (
-    <main className={styles.container}>
-      <section>
-        <h1>O que calcular</h1>
+    <Container title="Divisão de gastos">
+      <>
+        <section>
+          <h2>O que calcular</h2>
 
-        <input onChange={onChangeExpenseName} placeholder="Gastos" />
-      </section>
+          <input onChange={onChangeExpenseName} placeholder="Gastos" />
+        </section>
 
-      <section>
-        <h1>Nome da pessoa pra divisão</h1>
+        <section>
+          <h3>Nome da pessoa pra divisão</h3>
 
-        <ul>
-          {payers.map((payer, index) => {
-            return (
-              <li key={index}>
-                <div>
-                  <span>{payer.name}</span>
-                  <button onClick={() => deletePayer(index)}>X</button>
-                </div>
+          <ul>
+            {payers.map((payer, index) => {
+              return (
+                <li key={index}>
+                  <div>
+                    <span>{payer.name}</span>
+                    <button onClick={() => deletePayer(index)}>X</button>
+                  </div>
 
-                <div>
-                  <input type="text" onChange={onChangeNameCost} />
+                  <div>
+                    <input type="text" onChange={onChangeNameCost} />
 
-                  <input type="number" onChange={onChangeValueCost} />
+                    <input type="number" onChange={onChangeValueCost} />
 
-                  <button onClick={() => onAddCost(index)}>Adicionar</button>
-                </div>
+                    <button onClick={() => onAddCost(index)}>Adicionar</button>
+                  </div>
 
-                <ul>
-                  {payer.spends.map((val, index) => {
-                    console.log(val.name)
-                    return <span key={index}>{val.name}</span>
-                  })}
-                </ul>
-              </li>
-            )
-          })}
-        </ul>
+                  <ul>
+                    {payer.spends.map((val, index) => {
+                      console.log(val.name)
+                      return <span key={index}>{val.name}</span>
+                    })}
+                  </ul>
+                </li>
+              )
+            })}
+          </ul>
 
-        <input ref={elInputRef} onChange={onChangePayerName} placeholder="Nome pessoa" />
+          <input ref={elInputRef} onChange={onChangePayerName} placeholder="Nome pessoa" />
 
-        <button type="button" onClick={onAddPeople}>
-          Adicionar pessoa
-        </button>
-      </section>
-
-      <button onClick={onStartCalculate}>Começar cálculo</button>
-    </main>
+          <button type="button" onClick={onAddPeople}>
+            Adicionar pessoa
+          </button>
+        </section>
+        <button onClick={onStartCalculate}>Começar cálculo</button>
+      </>
+    </Container>
   )
 }
-
-// const Example = {
-//   ['março']: [
-//     {
-//       name: 'Natiele',
-//       despesas: [
-//         { costName: 'agua', cost: 80 },
-//         { costName: 'energia', cost: 200 },
-//       ],
-//     },
-//     {
-//       name: 'leonardo',
-//       despesas: [
-//         { costName: 'gas', cost: 10 },
-//         { costName: 'compras', cost: 400 },
-//       ],
-//     },
-//   ],
-//   ['abril']: [
-//     {
-//       name: 'Natiele',
-//       despesas: [
-//         { costName: 'agua', cost: 80 },
-//         { costName: 'energia', cost: 200 },
-//       ],
-//     },
-//     {
-//       name: 'leonardo',
-//       despesas: [
-//         { costName: 'gas', cost: 10 },
-//         { costName: 'compras', cost: 400 },
-//       ],
-//     },
-//   ],
-// }
-
-// const testeAriel = Example['março'].find(name => name.name ==='leonardo')?.despesas
