@@ -4,7 +4,7 @@ import { ShareExpenses } from '../components/ShareExpenses/ShareExpenses'
 
 function ShareExpensesPage(): JSX.Element {
   return (
-    <Layout title="Divisão gastos" description="Arquitetura de divisão de gastos">
+    <Layout title="Divisão gastos" description="Utilitário de divisão de gastos">
       <ShareExpenses />
     </Layout>
   )

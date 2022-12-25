@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.scss'
 
 function Home(): JSX.Element {
   return (
-    <Layout title="Home Page" description="A simple page">
+    <Layout title="Home Page" description="Página principal">
       <div className={styles.container}>
         <Card anchor="/random-number" keyName="Números da sorte" image="random-number.png" />
 

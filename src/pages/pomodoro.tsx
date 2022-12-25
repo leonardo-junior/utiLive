@@ -4,7 +4,7 @@ import { Pomodoro } from '../components/Pomodoro/Pomodoro'
 
 function PomodoroPage(): JSX.Element {
   return (
-    <Layout title="Pomodoro" description="Pomodoro timer">
+    <Layout title="Pomodoro" description="Temporizador pomodoro">
       <Pomodoro />
     </Layout>
   )
