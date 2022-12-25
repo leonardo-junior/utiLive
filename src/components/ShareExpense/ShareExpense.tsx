@@ -132,8 +132,8 @@ export const ShareExpense = (): JSX.Element => {
             {expensesData.map((expenseFinal, index) => (
               <li key={index} className={styles.finalValue}>
                 {expenseFinal.finalValue > 0
-                  ? `Repassar ${expenseFinal.finalValue}`
-                  : `Receber ${expenseFinal.finalValue * -1}`}
+                  ? `Receber ${expenseFinal.finalValue}`
+                  : `Repassar ${expenseFinal.finalValue * -1}`}
               </li>
             ))}
           </ul>
