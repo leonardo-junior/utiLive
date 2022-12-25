@@ -1,5 +1,5 @@
 // vendors
-import { ChangeEvent, HTMLInputTypeAttribute } from 'react'
+import { ChangeEvent, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react'
 
 // styles
 import styles from './Input.module.scss'
@@ -9,7 +9,7 @@ type InputProps = {
   label?: string
   placeholder?: string
   type?: HTMLInputTypeAttribute | undefined
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 export const Input = ({ onChange, placeholder, label, type = 'text', ...props }: InputProps): JSX.Element => {
   return (
