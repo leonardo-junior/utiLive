@@ -1,12 +1,13 @@
 // styles
 import clsx from 'clsx'
+import { ButtonHTMLAttributes } from 'react'
 import styles from './Button.module.scss'
 
 type ButtonProps = {
   text?: string
   children?: JSX.Element
   icon?: boolean
-} & React.HTMLAttributes<HTMLButtonElement>
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = ({ text, children, icon = false, ...props }: ButtonProps): JSX.Element => {
   return (
