@@ -5,17 +5,17 @@ import { FaTimes } from 'react-icons/fa'
 // components
 import { Button } from '../../Button/Button'
 import { Input } from '../../Input/Input'
-import { PayerProps } from '../ShareExpense'
+import { Payer } from '../ShareExpense'
 
 // styles
 import styles from './PersonSpendsCard.module.scss'
 
 type PersonSpendsCardProps = {
   index: number
-  payer: PayerProps
-  payers: PayerProps[]
+  payer: Payer
+  payers: Payer[]
   deletePayer: (index: number) => void
-  setPayers: (payers: PayerProps[]) => void
+  setPayers: (payers: Payer[]) => void
 }
 
 export const PersonSpendsCard = ({
@@ -49,6 +49,7 @@ export const PersonSpendsCard = ({
     }
 
     payer.spends.push(newSpend)
+    payer.total = payer.total + valueCost
 
     const newPayers = payers
     newPayers[index] = payer

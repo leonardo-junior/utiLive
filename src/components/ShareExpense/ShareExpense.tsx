@@ -1,6 +1,5 @@
 // vendors
-import { ChangeEvent, useRef, useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
+import { ChangeEvent, useState } from 'react'
 
 // components
 import { Button } from '../Button/Button'
@@ -9,38 +8,48 @@ import { Input } from '../Input/Input'
 import { PersonSpendsCard } from './PersonSpendsCard/PersonSpendsCard'
 
 // hooks
-import useLocalStorage from '../../hooks/useLocalStorage'
+// import useLocalStorage from '../../hooks/useLocalStorage'
 
 // styles
 import styles from './ShareExpense.module.scss'
 
-export type ExpenseProps = {
+export type Expense = {
   name: string
-  payers: PayerProps[]
+  payers: Payer[]
 }
 
-export type PayerProps = {
+export type Payer = {
   name: string
-  spends: SpendProps[]
+  spends: Spend[]
+  total: number
 }
 
-export type SpendProps = {
+export type Spend = {
   name: string
   cost: number
 }
 
+type FinalValue = {
+  name: string
+  finalValue: number
+}
+
+// TODO add in localStorage with name of expense
+
 export const ShareExpense = (): JSX.Element => {
-  const [payers, setPayers] = useState<PayerProps[]>([])
+  const [payers, setPayers] = useState<Payer[]>([])
   const [payerName, setPayerName] = useState('')
-  const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
+  const [expensesData, setExpensesData] = useState<FinalValue[]>([])
 
-  const expenseNameInputRef = useRef('Gasto')
+  // const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
-  function onChangeExpenseName(event: ChangeEvent<HTMLInputElement>) {
-    const expenseName = event.target.value
+  // const expenseNameInputRef = useRef('Gasto')
 
-    expenseNameInputRef.current = expenseName
-  }
+  // function onChangeExpenseName(event: ChangeEvent<HTMLInputElement>) {
+  //   const expenseName = event.target.value
+
+  //   expenseNameInputRef.current = expenseName
+  // }
 
   function onChangePayerName(event: ChangeEvent<HTMLInputElement>) {
     const payerName = event.target.value
@@ -57,6 +66,7 @@ export const ShareExpense = (): JSX.Element => {
       const newPayer = {
         name: payerName.trim(),
         spends: [],
+        total: 0,
       }
 
       const newPayers = [...payers, newPayer]
@@ -74,32 +84,24 @@ export const ShareExpense = (): JSX.Element => {
   }
 
   function onStartCalculate() {
-    const expenseName = expenseNameInputRef.current ? expenseNameInputRef.current : `Gastos ${payers.length}` //improve in future
+    const total = payers.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0)
+    const valuePerPerson = total / payers.length
 
-    const dataPayers = payers.map((name) => {
-      return {
-        name,
-        spend: [],
-      }
-    })
+    const finalValues = payers.map((val) => ({
+      name: val.name,
+      finalValue: val.total - valuePerPerson,
+    }))
 
-    const expenses = {
-      name: expenseName,
-      payers: dataPayers,
-    }
-
-    const newData = [...expensesData, expenses]
-
-    // setExpensesData(newData)
+    setExpensesData(finalValues)
   }
 
   return (
     <Container title="Divisão de gastos">
       <div className={styles.container}>
         <section className={styles.addPayer}>
-          <section>
+          {/* <section>
             <Input onChange={onChangeExpenseName} label="Descrição despesa" placeholder="Despesa" />
-          </section>
+          </section> */}
 
           <section>
             <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" value={payerName} />
@@ -107,6 +109,7 @@ export const ShareExpense = (): JSX.Element => {
             <Button text="Acidicionar pessoa" onClick={onAddPayer} type="button" />
           </section>
         </section>
+
         <section>
           <ul>
             {payers.map((payer, index) => {
@@ -121,6 +124,18 @@ export const ShareExpense = (): JSX.Element => {
                 />
               )
             })}
+          </ul>
+        </section>
+
+        <section>
+          <ul>
+            {expensesData.map((expenseFinal, index) => (
+              <li key={index} className={styles.finalValue}>
+                {expenseFinal.finalValue > 0
+                  ? `Repassar ${expenseFinal.finalValue}`
+                  : `Receber ${expenseFinal.finalValue * -1}`}
+              </li>
+            ))}
           </ul>
         </section>
 
