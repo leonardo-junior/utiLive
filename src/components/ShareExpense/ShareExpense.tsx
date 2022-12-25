@@ -1,5 +1,6 @@
 // vendors
 import { ChangeEvent, useRef, useState } from 'react'
+import { FaTimes } from 'react-icons/fa'
 
 // components
 import { Button } from '../Button/Button'
@@ -12,9 +13,9 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 // styles
 import styles from './ShareExpense.module.scss'
 
-export type SpendProps = {
+export type ExpenseProps = {
   name: string
-  cost: number
+  payers: PayerProps[]
 }
 
 export type PayerProps = {
@@ -22,9 +23,9 @@ export type PayerProps = {
   spends: SpendProps[]
 }
 
-export type ExpenseProps = {
+export type SpendProps = {
   name: string
-  payers: PayerProps[]
+  cost: number
 }
 
 export const ShareExpense = (): JSX.Element => {
@@ -147,18 +148,22 @@ export const ShareExpense = (): JSX.Element => {
             {payers.map((payer, index) => {
               return (
                 <li key={index}>
-                  <div>
+                  <div className={styles.payerName}>
                     <span>{payer.name}</span>
 
-                    <button onClick={() => deletePayer(index)}>X</button>
+                    <Button iconClean onClick={() => deletePayer(index)}>
+                      <FaTimes />
+                    </Button>
                   </div>
 
-                  <div>
-                    <Input onChange={onChangeNameCost} placeholder={'Nome do gasto'} />
+                  <div className={styles.addSpend}>
+                    <div>
+                      <Input onChange={onChangeNameCost} label="Nome do gasto" />
 
-                    <Input type="number" onChange={onChangeValueCost} placeholder={'Valor'} />
+                      <Input type="number" onChange={onChangeValueCost} label="Valor" />
+                    </div>
 
-                    <button onClick={() => onAddCost(index)}>Adicionar</button>
+                    <Button text="Adicionar gasto" onClick={() => onAddCost(index)} />
                   </div>
 
                   <ul>
