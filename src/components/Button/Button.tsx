@@ -7,14 +7,16 @@ type ButtonProps = {
   text?: string
   children?: JSX.Element
   icon?: boolean
+  iconClean?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button = ({ text, children, icon = false, ...props }: ButtonProps): JSX.Element => {
+export const Button = ({ text, children, icon = false, iconClean, ...props }: ButtonProps): JSX.Element => {
   return (
     <button
       className={clsx({
         [styles.button]: true,
         [styles.icon]: icon,
+        [styles.iconClean]: iconClean,
       })}
       {...props}
     >
