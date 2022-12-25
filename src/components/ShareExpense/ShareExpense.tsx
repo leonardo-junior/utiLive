@@ -30,12 +30,12 @@ export type SpendProps = {
 
 export const ShareExpense = (): JSX.Element => {
   const [payers, setPayers] = useState<PayerProps[]>([])
+  const [nameCost, setNameCost] = useState('')
+  const [valueCost, setValueCost] = useState(0)
+  const [payerName, setPayerName] = useState('')
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
   const expenseNameInputRef = useRef('Gasto')
-  const payerNameInputRef = useRef('')
-  const nameCostInputRef = useRef('')
-  const valueCostInputRef = useRef(0)
 
   function onChangeExpenseName(event: ChangeEvent<HTMLInputElement>) {
     const expenseName = event.target.value
@@ -46,44 +46,41 @@ export const ShareExpense = (): JSX.Element => {
   function onChangePayerName(event: ChangeEvent<HTMLInputElement>) {
     const payerName = event.target.value
 
-    payerNameInputRef.current = payerName
+    setPayerName(payerName)
   }
 
   function onChangeNameCost(event: ChangeEvent<HTMLInputElement>) {
     const nameCost = event.target.value
 
-    nameCostInputRef.current = nameCost
+    setNameCost(nameCost)
   }
 
   function onChangeValueCost(event: ChangeEvent<HTMLInputElement>) {
     const valueCost = +event.target.value
 
-    valueCostInputRef.current = valueCost
+    setValueCost(valueCost)
   }
 
-  function onAddPeople() {
-    if (!payerNameInputRef.current) return
+  function onAddPayer() {
+    if (!payerName) return
 
-    const payerRepeated = payers.some((payer) => payer.name === payerNameInputRef.current)
+    const payerRepeated = payers.some((payer) => payer.name === payerName)
 
     if (!payerRepeated) {
-      const payerName = payerNameInputRef.current.trim()
-
       const newPayer = {
-        name: payerName,
+        name: payerName.trim(),
         spends: [],
       }
 
       const newPayers = [...payers, newPayer]
 
       setPayers(newPayers)
+
+      setPayerName('')
     }
   }
 
   function onAddCost(index: number) {
-    const nameCost = nameCostInputRef.current
-    const valueCost = valueCostInputRef.current
-
     const payer = payers[index]
 
     const newSpend = {
@@ -98,8 +95,8 @@ export const ShareExpense = (): JSX.Element => {
 
     setPayers(newPayers)
 
-    nameCostInputRef.current = ''
-    valueCostInputRef.current = 0
+    setNameCost('')
+    setValueCost(0)
 
     console.log(payers)
   }
@@ -138,9 +135,9 @@ export const ShareExpense = (): JSX.Element => {
         </section>
 
         <section>
-          <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" />
+          <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" value={payerName} />
 
-          <Button text="Acidicionar pessoa" onClick={onAddPeople} type="button" />
+          <Button text="Acidicionar pessoa" onClick={onAddPayer} type="button" />
         </section>
 
         <section>
@@ -158,9 +155,9 @@ export const ShareExpense = (): JSX.Element => {
 
                   <div className={styles.addSpend}>
                     <div>
-                      <Input onChange={onChangeNameCost} label="Nome do gasto" />
+                      <Input onChange={onChangeNameCost} label="Nome do gasto" value={nameCost} />
 
-                      <Input type="number" onChange={onChangeValueCost} label="Valor" />
+                      <Input type="number" onChange={onChangeValueCost} label="Valor" value={valueCost} />
                     </div>
 
                     <Button text="Adicionar gasto" onClick={() => onAddCost(index)} />
