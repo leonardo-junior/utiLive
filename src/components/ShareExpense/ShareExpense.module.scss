@@ -10,25 +10,25 @@
     flex-direction: column;
     gap: 1rem;
     width: 100%;
+    min-width: 15rem;
   }
 
   ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
     padding: 0;
     list-style: none;
 
     li {
+      width: 15rem;
       margin: 0.25rem 0;
     }
   }
 }
 
-.payerName {
-  display: flex;
-  justify-content: space-between;
-}
-
-.addSpend {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.addPayer {
+  align-self: center;
+  max-width: 15rem;
 }

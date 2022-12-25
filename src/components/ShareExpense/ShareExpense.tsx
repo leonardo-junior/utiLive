@@ -6,6 +6,7 @@ import { FaTimes } from 'react-icons/fa'
 import { Button } from '../Button/Button'
 import { Container } from '../Container/Container'
 import { Input } from '../Input/Input'
+import { PersonSpendsCard } from './PersonSpendsCard/PersonSpendsCard'
 
 // hooks
 import useLocalStorage from '../../hooks/useLocalStorage'
@@ -30,8 +31,6 @@ export type SpendProps = {
 
 export const ShareExpense = (): JSX.Element => {
   const [payers, setPayers] = useState<PayerProps[]>([])
-  const [nameCost, setNameCost] = useState('')
-  const [valueCost, setValueCost] = useState(0)
   const [payerName, setPayerName] = useState('')
   const [expensesData, setExpensesData] = useLocalStorage<ExpenseProps[]>('expenses-data', [])
 
@@ -47,18 +46,6 @@ export const ShareExpense = (): JSX.Element => {
     const payerName = event.target.value
 
     setPayerName(payerName)
-  }
-
-  function onChangeNameCost(event: ChangeEvent<HTMLInputElement>) {
-    const nameCost = event.target.value
-
-    setNameCost(nameCost)
-  }
-
-  function onChangeValueCost(event: ChangeEvent<HTMLInputElement>) {
-    const valueCost = +event.target.value
-
-    setValueCost(valueCost)
   }
 
   function onAddPayer() {
@@ -78,27 +65,6 @@ export const ShareExpense = (): JSX.Element => {
 
       setPayerName('')
     }
-  }
-
-  function onAddCost(index: number) {
-    const payer = payers[index]
-
-    const newSpend = {
-      name: nameCost,
-      cost: valueCost,
-    }
-
-    payer.spends.push(newSpend)
-
-    const newPayers = payers
-    newPayers[index] = payer
-
-    setPayers(newPayers)
-
-    setNameCost('')
-    setValueCost(0)
-
-    console.log(payers)
   }
 
   function deletePayer(indexPerson: number) {
@@ -130,45 +96,29 @@ export const ShareExpense = (): JSX.Element => {
   return (
     <Container title="Divisão de gastos">
       <div className={styles.container}>
-        <section>
-          <Input onChange={onChangeExpenseName} label="Descrição despesa" placeholder="Despesa" />
+        <section className={styles.addPayer}>
+          <section>
+            <Input onChange={onChangeExpenseName} label="Descrição despesa" placeholder="Despesa" />
+          </section>
+
+          <section>
+            <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" value={payerName} />
+
+            <Button text="Acidicionar pessoa" onClick={onAddPayer} type="button" />
+          </section>
         </section>
-
-        <section>
-          <Input onChange={onChangePayerName} label="Nome pessoa" placeholder="Nome" value={payerName} />
-
-          <Button text="Acidicionar pessoa" onClick={onAddPayer} type="button" />
-        </section>
-
         <section>
           <ul>
             {payers.map((payer, index) => {
               return (
-                <li key={index}>
-                  <div className={styles.payerName}>
-                    <span>{payer.name}</span>
-
-                    <Button iconClean onClick={() => deletePayer(index)}>
-                      <FaTimes />
-                    </Button>
-                  </div>
-
-                  <div className={styles.addSpend}>
-                    <div>
-                      <Input onChange={onChangeNameCost} label="Nome do gasto" value={nameCost} />
-
-                      <Input type="number" onChange={onChangeValueCost} label="Valor" value={valueCost} />
-                    </div>
-
-                    <Button text="Adicionar gasto" onClick={() => onAddCost(index)} />
-                  </div>
-
-                  <ul>
-                    {payer.spends.map((val, index) => {
-                      return <li key={index}>{val.name}</li>
-                    })}
-                  </ul>
-                </li>
+                <PersonSpendsCard
+                  key={index}
+                  index={index}
+                  payer={payer}
+                  payers={payers}
+                  deletePayer={deletePayer}
+                  setPayers={setPayers}
+                />
               )
             })}
           </ul>
