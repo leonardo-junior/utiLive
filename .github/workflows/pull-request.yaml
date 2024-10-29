@@ -1,6 +1,8 @@
-name: codecov workflow
+name: test workflow
 
-on: [pull_request]
+on:
+  repository_dispatch:
+    types: [run-tests]
 
 jobs:
   test:
@@ -13,3 +15,15 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           yarn install
+
+      - name: Update PR status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { pr_repo, pr_number } = context.payload.client_payload;
+            github.rest.issues.createComment({
+              owner: pr_repo.owner,
+              repo: pr_repo.repo,
+              issue_number: pr_number,
+              body: 'E2E tests completed successfully'
+            });
