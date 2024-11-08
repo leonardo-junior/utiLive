@@ -6,6 +6,7 @@ function ShareExpensesPage(): JSX.Element {
   return (
     <Layout title="Divisão gastos" description="Utilitário de divisão de gastos">
       <ShareExpense />
+      <div>ot</div>
     </Layout>
   )
 }
